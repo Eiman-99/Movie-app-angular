@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/scss/bootstrap';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.custom-container{
+    width: 90% !important;
+    margin: 0 auto !important;
+}
+
+.text-grey{
+    color: #d1d1d1;
+}
+
+.text-yellow{
+    color: #F5C61C;
+;
+}
+
+.btn-yellow{
+    background: #F5C61C;
+}
+
+.btn-yellow:hover{
+    background: #d9ae13;
+}
+

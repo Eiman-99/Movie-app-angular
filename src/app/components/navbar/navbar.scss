@@ -1,0 +1,11 @@
+.logo{
+    &:hover,
+  &:focus,
+  &:active {
+    color: #F5C61C;
+  }
+}
+
+.thin-light-border{
+    border-bottom: 1px solid rgba(250, 248, 248, 0.2) !important;
+}

@@ -1,0 +1,22 @@
+<section class="watchlist">
+  <div class="container mt-4 py-4">
+    <h2 class="fw-bold mb-3">My Watchlist</h2>
+    
+    @if (watchlist().length > 0) {
+      <p class="description mb-4">
+        Here are the movies you've added to your watchlist. You can remove them anytime or explore more films.
+      </p>
+      
+      <div class="movie-list row g-4 ">
+        @for (movie of watchlist(); track movie.id) {
+          <app-movie [movie]="movie"></app-movie>
+        }
+      </div>
+    } @else {
+      <div class="empty-state py-5">
+        <p class="empty-text mb-3">Your watchlist is empty</p>
+        <button class="btn btn-yellow text-black" (click)="goBackHome()">Back to Home</button>
+      </div>
+    }
+  </div>
+</section>

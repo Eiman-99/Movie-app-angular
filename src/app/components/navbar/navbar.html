@@ -8,27 +8,36 @@
 
     <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="navbarContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-lg-flex gap-lg-4 fw-light">
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#movies">Movies</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/shows">TV Shows</a>
-        </li>
-      </ul>
+      <li class="nav-item">
+        <a class="nav-link text-white" [routerLink]="'/'" fragment="hero">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" [routerLink]="'/'" fragment="movies">Movies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" [routerLink]="'/shows'">TV Shows</a>
+      </li>
+      <li class="nav-item">
+      <a routerLink="/watchlist" class="nav-link text-white d-flex align-items-center">
+          My List
+        @if (count() > 0) {
+          <span class="badge bg-yellow ms-2">{{ count() }}</span>
+        }
+      </a>     
+     </li>
+    </ul>
+
+
+      
 
       <div class="d-flex gap-4 mt-3 mt-lg-0 ">
         <a title="Search" class="text-white">
           <fa-icon [icon]="faSearch" class="fs-5"></fa-icon>
         </a>
-        <a routerLink="/favourites" title="Favorites" class="text-white">
-          <fa-icon [icon]="faHeart" class="fs-5"></fa-icon>
-        </a>
-        <a routerLink="/watchlist" title="Watchlist" class="text-white">
-          <fa-icon [icon]="faBookmark" class="fs-5"></fa-icon>
-        </a>
+
+
+          <!-- <fa-icon [icon]="faBookmark" class="fs-5 me-1"></fa-icon> -->
+    
       </div>
     </div>
   </div>

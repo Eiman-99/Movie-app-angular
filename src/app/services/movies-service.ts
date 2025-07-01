@@ -1,28 +1,44 @@
 // src/app/services/movie.service.ts
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class MovieService {
-  private apiKey = 'cc687401dafd56a04490baaaa29e1329'; 
-  private apiUrl = `https://api.themoviedb.org/3/movie/now_playing?api_key=${this.apiKey}`;
+  private apiKey = 'cc687401dafd56a04490baaaa29e1329';
+  private baseUrl = 'https://api.themoviedb.org/3/movie/now_playing';
 
   private nowPlayingSignal = signal<any[]>([]);
+  private currentPageSignal = signal(1);
+  private totalPagesSignal = signal(1); 
 
   constructor(private http: HttpClient) {
-    this.fetchNowPlaying();
+    effect(() => {
+      this.fetchNowPlaying(this.currentPageSignal());
+    });
   }
 
   get nowPlaying() {
     return this.nowPlayingSignal;
   }
 
-  private fetchNowPlaying() {
-    this.http.get<any>(this.apiUrl).subscribe(res => {
-  this.nowPlayingSignal.set(res.results);
-});
-
+  get currentPage() {
+    return this.currentPageSignal;
   }
+
+  get totalPages() {
+    return this.totalPagesSignal;
+  }
+
+  goToPage(page: number) {
+    this.currentPageSignal.set(page); 
+  }
+
+  private fetchNowPlaying(page: number) {
+  const url = `${this.baseUrl}?api_key=${this.apiKey}&page=${page}`;
+  this.http.get<any>(url).subscribe(res => {
+    this.nowPlayingSignal.set(res.results);
+    this.totalPagesSignal.set(Math.min(res.total_pages, 6)); 
+  });
+}
+
 }

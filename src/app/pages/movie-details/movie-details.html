@@ -1,0 +1,147 @@
+<section class="movie-details">
+  <div class="container py-5">
+    @if (movie()) {
+      <div class="row">
+  <div class="row d-flex">
+    <div class="col-md-4 text-center mb-3 mb-md-0">
+      <img
+        class="poster rounded img-fluid"
+        [src]="'https://image.tmdb.org/t/p/w500' + movie().poster_path"
+        [alt]="movie().title"
+      />
+    </div>
+
+    <div class="col-md-8 d-flex flex-column justify-content-start align-items-start">
+      <div class="d-flex align-items-center justify-content-between mb-2 w-100">
+        <div>
+          <h2 class="fw-bold mb-0">{{ movie().title }}</h2>
+          <small class="text-muted mb-0">{{ movie().release_date | date }}</small>
+        </div>
+
+        <button (click)="toggleWatchlist($event)" class="btn btn-outline-warning ms-3">
+          <fa-icon [icon]="isInWatchlist() ? faHeartSolid : faHeart"></fa-icon>
+        </button>
+      </div>
+
+      <div class="d-flex align-items-center mb-3">
+        @for (star of [1, 2, 3, 4, 5]; track star) {
+          @if ((movie().vote_average / 2) >= star) {
+            <fa-icon [icon]="faStarSolid" class="me-1 text-warning"></fa-icon>
+          } @else if ((movie().vote_average / 2) >= (star - 0.5)) {
+            <fa-icon [icon]="faStarHalfAlt" class="me-1 text-warning"></fa-icon>
+          } @else {
+            <fa-icon [icon]="faStar" class="me-1 text-warning"></fa-icon>
+          }
+        }
+        <span class="ms-2">{{ movie().vote_count }}</span>
+      </div>
+
+      <p class="lead">{{ movie().overview }}</p>
+
+      <div class="mb-3">
+        @for (genre of movie().genres; track genre.id) {
+          <span class="badge bg-warning text-dark me-2 px-3 py-2 rounded-pill">
+            {{ genre.name }}
+          </span>
+        }
+      </div>
+
+      <p><strong>Duration:</strong> {{ movie().runtime }} Min.</p>
+      <p><strong>Languages:</strong> {{ movie().original_language }}</p>
+
+      <div class="my-3 d-flex flex-wrap gap-3">
+        @for (company of movie().production_companies; track company.id) {
+          @if (company.logo_path) {
+            <img
+              [src]="'https://image.tmdb.org/t/p/w200' + company.logo_path"
+              [alt]="company.name"
+              style="height: 40px"
+              class="img-fluid"
+            />
+          }
+        }
+      </div>
+
+      @if (movie().homepage) {
+        <a
+          [href]="movie().homepage"
+          target="_blank"
+          class="btn btn-outline-secondary mt-3 "
+        >
+          Website 🌐
+        </a>
+      }
+    </div>
+  </div>
+        </div>
+
+
+
+      <!-- Recommendations -->
+      <hr class="my-5" />
+      <h4 class="mb-3 fw-bold">Recommendations</h4>
+      <div class="row g-4">
+        @for (rec of recommendations(); track rec.id) {
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <a
+              [routerLink]="['/movie-details', rec.id]" 
+                class="text-decoration-none text-dark"
+                (click)="$event.stopPropagation()"
+            >
+              <div class="position-relative">
+                <img
+                  class="w-100 rounded"
+                  [src]="'https://image.tmdb.org/t/p/w200' + rec.poster_path"
+                  [alt]="rec.title"
+                />
+                <div class="vote-circle position-absolute start-1" style="bottom: -1rem; left: 0.5rem;">
+                <svg viewBox="0 0 36 36" class="circular-chart">
+                  <path
+                    class="circle-bg"
+                    d="M18 2.0845
+                       a 15.9155 15.9155 0 0 1 0 31.831
+                       a 15.9155 15.9155 0 0 1 0 -31.831"
+                  />
+                  <path
+                    class="circle"
+                    [attr.stroke-dasharray]="(movie().vote_average * 10) + ', 100'"
+                    [attr.stroke]="
+                      movie().vote_average >= 7.5
+                        ? '#21d07a'
+                        : movie().vote_average >= 5
+                          ? '#d2d531'
+                          : '#db2360'
+                    "
+                    d="M18 2.0845
+                       a 15.9155 15.9155 0 0 1 0 31.831
+                       a 15.9155 15.9155 0 0 1 0 -31.831"
+                  />
+                  <text x="18" y="20.35" class="percentage">
+                {{ rec.vote_average * 10 | number: '1.0-0' }} %                
+             </text>
+                </svg>
+              </div>
+              </div>
+              <p class="fw-bold mt-2 mb-0 small">{{ rec.title }}</p>
+              <p class="text-muted small">
+                {{ rec.release_date | date }}
+              </p>
+            </a>
+          </div>
+        }
+      </div>
+
+      <hr class="my-5" />
+      <div class="reviews">
+        <h4 class="mb-3">Reviews</h4>
+        @for (review of reviews(); track review.id) {
+          <div class="border rounded-3 p-3 mb-3 bg-light">
+            <strong>{{ review.author }}</strong>
+            <p class="mb-0">{{ review.content.slice(0,200) }}...</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+

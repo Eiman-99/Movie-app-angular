@@ -4,11 +4,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
 import { WatchlistService } from '../../services/watchlist-service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-movie',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule, DatePipe, DecimalPipe], 
+  imports: [CommonModule, FontAwesomeModule, DatePipe, DecimalPipe, RouterModule], 
   templateUrl: './movie.html',
   styleUrl: './movie.scss',
 })
@@ -19,7 +20,7 @@ export class Movie {
   faHeart = faHeartRegular;
   faHeartSolid = faHeartSolid;
 
-  toggleWishlist() {
+  toggleWatchlist() {
     this.watchlistService.toggle(this.movie());
   }
 

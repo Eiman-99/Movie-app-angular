@@ -1,0 +1,62 @@
+.movie-details{
+  padding-top: 5rem;
+  .poster {
+    width: 100%;
+    max-width: 18rem;
+    border-radius: 1rem;
+  }
+
+  .circular-chart {
+    width: 36px;
+    height: 36px;
+
+    .circle-bg {
+      fill: #0d3c32;
+      stroke: #303030;
+      stroke-width: 3.8;
+    }
+
+    .circle {
+      fill: none;
+      stroke-width: 3.8;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.3s ease;
+    }
+
+    .percentage {
+      fill: white;
+      font-size: 1rem;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      font-size: x-small;
+    }
+  }
+  
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+  }
+
+  .vote-score {
+    font-size: 0.8rem;
+    background-color: #000;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(-10%, 50%);
+  }
+
+
+}
+

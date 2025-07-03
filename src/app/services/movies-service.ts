@@ -1,4 +1,3 @@
-// src/app/services/movie.service.ts
 import { Injectable, signal, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 

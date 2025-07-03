@@ -27,18 +27,44 @@
      </li>
     </ul>
 
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0 me-3 search">
+  <a title="Search" class="text-white cursor-pointer" (click)="isSearchOpen = !isSearchOpen">
+    <fa-icon [icon]="faSearch" class="fs-5"></fa-icon>
+  </a>
 
-      
+  @if (isSearchOpen) {
+  <input
+  type="text"
+  [(ngModel)]="searchTerm"
+  (ngModelChange)="onSearchInput()"
+  class="search-input form-control bg-transparent text-white white-placeholder"
+  placeholder="Search..."
+  autofocus
+/>
 
-      <div class="d-flex gap-4 mt-3 mt-lg-0 ">
-        <a title="Search" class="text-white">
-          <fa-icon [icon]="faSearch" class="fs-5"></fa-icon>
-        </a>
 
 
-          <!-- <fa-icon [icon]="faBookmark" class="fs-5 me-1"></fa-icon> -->
-    
-      </div>
+}
+
+</div>
+
+
+
+       <!-- <div ngbDropdown class="dropdown mt-2 mt-lg-0">
+      <button class="btn btn-outline-light dropdown-toggle py-1 px-2" ngbDropdownToggle>
+        {{ currentLang }}
+      </button>
+      <ul ngbDropdownMenu class="dropdown-menu">
+        @for (lang of languages; track lang) {
+          <li>
+            <button class="dropdown-item" (click)="changeLanguage(lang)">
+              {{ lang.toUpperCase() }}
+            </button>
+          </li>
+        }
+      </ul>
+    </div> -->
+
     </div>
   </div>
 </nav>

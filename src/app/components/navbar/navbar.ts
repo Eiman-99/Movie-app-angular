@@ -1,24 +1,57 @@
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faHeart as faHeartRegular, faBookmark as faBookmarkRegular } from '@fortawesome/free-regular-svg-icons';
-import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartSolid, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { WatchlistService } from '../../services/watchlist-service';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterModule, FontAwesomeModule, NgbCollapse],
+  imports: [RouterModule, FontAwesomeModule, NgbCollapse, FormsModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
 export class Navbar {
+  private router = inject(Router);
   watchlistService = inject(WatchlistService);
+
   count = this.watchlistService.count;
-  faHeartSolid =faHeartSolid;
+  faHeartSolid = faHeartSolid;
   faHeart = faHeartRegular;
   faBookmark = faBookmarkRegular;
   faSearch = faSearch;
+
   isCollapsed = true;
+  isSearchOpen = false;
+  searchTerm = '';
+
+  toggleSearch() {
+    this.isSearchOpen = !this.isSearchOpen;
+  }
+
+  onSearchEnter(event: KeyboardEvent) {
+    if (event.key === 'Enter' && this.searchTerm.trim()) {
+      this.router.navigate(['/search'], {
+        queryParams: { query: this.searchTerm.trim() },
+      });
+      this.searchTerm = '';
+      this.isSearchOpen = false;
+    }
+  }
+
+  onSearchInput() {
+  const trimmed = this.searchTerm.trim();
+  if (trimmed) {
+    this.router.navigate(['/search'], {
+      queryParams: { query: trimmed },
+    });
+  } else {
+    this.router.navigate(['/']); 
+  }
+}
+
+
+
 }

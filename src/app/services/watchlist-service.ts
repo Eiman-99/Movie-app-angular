@@ -4,6 +4,9 @@ type Movie = any;
 
 @Injectable({ providedIn: 'root' })
 export class WatchlistService {
+  has(id: any): boolean {
+    throw new Error('Method not implemented.');
+  }
   private watchlistSignal = signal<Movie[]>([]);
 
   get watchlist() {

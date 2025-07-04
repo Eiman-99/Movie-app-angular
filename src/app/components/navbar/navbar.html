@@ -42,28 +42,28 @@
   autofocus
 />
 
-
-
 }
 
 </div>
 
-
-
-       <!-- <div ngbDropdown class="dropdown mt-2 mt-lg-0">
-      <button class="btn btn-outline-light dropdown-toggle py-1 px-2" ngbDropdownToggle>
-        {{ currentLang }}
-      </button>
-      <ul ngbDropdownMenu class="dropdown-menu">
-        @for (lang of languages; track lang) {
-          <li>
-            <button class="dropdown-item" (click)="changeLanguage(lang)">
-              {{ lang.toUpperCase() }}
-            </button>
-          </li>
-        }
-      </ul>
-    </div> -->
+<div
+  ngbDropdown
+  class="dropdown mt-2 mt-lg-0"
+  [class.me-3]="languageService.selectedLanguage() === 'ar'"
+>
+  <button class="btn btn-outline-light dropdown-toggle py-1 px-2" ngbDropdownToggle>
+    {{ languageService.selectedLanguage() }}
+  </button>
+  <ul ngbDropdownMenu class="dropdown-menu">
+    @for (lang of languageService.languages; track lang) {
+      <li>
+        <button class="dropdown-item" (click)="languageService.changeLanguage(lang)">
+          {{ lang.toUpperCase() }}
+        </button>
+      </li>
+    }
+  </ul>
+</div>
 
     </div>
   </div>

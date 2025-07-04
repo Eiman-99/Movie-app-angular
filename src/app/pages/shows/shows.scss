@@ -1,3 +1,75 @@
-.shows{
-    padding-top: 10rem;
+.tv-shows{
+padding-top: 5rem;
+
+.card {
+  width: 12rem;
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-img-top {
+    object-fit: cover;
+  }
+
+  .circular-chart {
+    width: 36px;
+    height: 36px;
+
+    .circle-bg {
+      fill: #0d3c32;
+      stroke: #303030;
+      stroke-width: 3.8;
+    }
+
+    .circle {
+      fill: none;
+      stroke-width: 3.8;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.3s ease;
+    }
+
+    .percentage {
+      fill: white;
+      font-size: 1rem;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      font-size: x-small;
+    }
+  }
+}
+}
+
+
+::ng-deep {
+  .custom-pagination {
+    .page-item {
+      margin: 0 3px;
+
+      &.active .page-link {
+        background-color: #f5c61c; 
+        font-weight: 600;
+      }
+
+      &.disabled .page-link {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+
+    .page-link {
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: #333;
+      font-weight: 500;
+      padding: 6px 12px;
+      font-size: 1rem;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
 }

@@ -1,5 +1,11 @@
           <div class="card h-100 shadow-sm border-0 rounded-4 position-relative overflow-hidden" style="width: 100%; max-width: 200px;">
-            <a [routerLink]="['/movie-details', movie().id]" class="movie-card">
+            <a
+              [routerLink]="[
+                movie().first_air_date ? '/tv-details' : '/movie-details',
+                movie().id
+              ]"
+              class="movie-card"
+            >
             <div class="position-relative">
               <img
                 class="card-img-top rounded-top-4"
@@ -36,10 +42,10 @@
             </div>
           </a>
             <div class="card-body pb-1 d-flex justify-content-between gap-1">
-              <div>
-                <h5 class="card-title my-1">{{ movie().title }}</h5>
-                <p class="text-muted small">{{ movie().release_date | date }}</p>
-              </div>
+              <div class="movie-card" (click)="goToDetails()">
+              <h5 class="card-title">{{ movie().title || movie().name }}</h5>
+              <p>{{ movie().release_date || movie().first_air_date | date }}</p>
+            </div>
             <a (click)="toggleWatchlist()">
             <fa-icon
               [icon]="isFav() ? faHeartSolid : faHeart"

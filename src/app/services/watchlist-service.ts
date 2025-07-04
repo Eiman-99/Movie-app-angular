@@ -19,17 +19,27 @@ export class WatchlistService {
     return this.watchlistSignal().some(m => m.id === movieId);
   }
 
-  toggle(movie: Movie) {
+   toggle(item: any) {
     const current = this.watchlistSignal();
-    const exists = current.find(m => m.id === movie.id);
+    const exists = current.find(m => m.id === item.id);
     if (exists) {
-      this.watchlistSignal.set(current.filter(m => m.id !== movie.id));
+      this.remove(item.id);
     } else {
-      this.watchlistSignal.set([...current, movie]);
+      this.addToWatchlist(item);  
     }
   }
 
   remove(movieId: number) {
     this.watchlistSignal.set(this.watchlistSignal().filter(m => m.id !== movieId));
   }
+
+   addToWatchlist(item: any) {
+  const displayTitle = item.title || item.name || 'Unknown';
+  const media_type = item.first_air_date ? 'tv' : 'movie'; // TV shows have first_air_date
+  const watchlistItem = { ...item, displayTitle, media_type };
+  this.watchlistSignal.set([...this.watchlist(), watchlistItem]);
+}
+
+
+
 }

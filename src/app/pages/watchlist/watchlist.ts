@@ -18,4 +18,5 @@ export class Watchlist{
   goBackHome() {
     this.router.navigate(['/']);
   }
+
 }

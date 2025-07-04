@@ -1,4 +1,69 @@
-<section class="shows">
-    <div class="container"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat porro, distinctio praesentium rerum ut, harum reprehenderit voluptate molestias magnam esse incidunt commodi perspiciatis aspernatur iste illo quia, laudantium eveniet beatae?</p>
+<section class="tv-shows">
+  <div class="container mt-4 py-4">
+    <h2 class="mb-4 fw-bold">Popular TV Shows</h2>
+
+    <div class="row g-4 justify-content-md-start justify-content-sm-center pt-3 pb-5 mx-auto;">
+      @for (show of tvShows(); track show.id) {
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center">
+          <div class="card h-100 shadow-sm border-0 rounded-4 position-relative overflow-hidden" style="width: 100%; max-width: 200px;">
+            
+            <a [routerLink]="['/tv-details', show.id]" class="movie-card">
+              <div class="position-relative">
+                <img
+                  class="card-img-top rounded-top-4"
+                  [src]="'https://image.tmdb.org/t/p/w500' + show.poster_path"
+                  [alt]="show.name"
+                />
+                <div class="vote-circle position-absolute start-1" style="bottom: -1rem; left: 0.5rem;">
+                  <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    <path
+                      class="circle"
+                      [attr.stroke-dasharray]="(show.vote_average * 10) + ', 100'"
+                      [attr.stroke]="
+                        show.vote_average >= 7.5
+                          ? '#21d07a'
+                          : show.vote_average >= 5
+                            ? '#d2d531'
+                            : '#db2360'
+                      "
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <text x="18" y="20.35" class="percentage">{{ show.vote_average * 10 | number: '1.0-0' }} %</text>
+                  </svg>
+                </div>
+              </div>
+            </a>
+
+            <div class="card-body pb-1 d-flex justify-content-between gap-1">
+              <div>
+                <h5 class="card-title my-1">{{ show.name }}</h5>
+                <p class="text-muted small">{{ show.first_air_date | date }}</p>
+              </div>
+              <a type="button" (click)="toggleWatchlist(show)" class="btn btn-link p-0">
+                <fa-icon
+                  [icon]="isFav(show.id) ? faHeartSolid : faHeart"
+                  class="fs-5"
+                  [ngClass]="{ 'text-warning': isFav(show.id), 'text-black': !isFav(show.id) }"
+                ></fa-icon>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="container d-flex justify-content-center mt-4">
+  <ngb-pagination
+    [collectionSize]="totalPages() * 20"
+    [page]="page()"
+    [pageSize]="20"
+    (pageChange)="goToPage($event)"
+    [maxSize]="6"
+    size="sm"
+    class="custom-pagination d-flex flex-wrap justify-content-center"
+  ></ngb-pagination>
 </div>
+  </div>
 </section>
